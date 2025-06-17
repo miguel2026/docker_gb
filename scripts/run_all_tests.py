@@ -13,7 +13,7 @@ import pandas as pd
 
 from test_latency import measure_latency
 from test_memory_cpu_io import measure_resource_usage
-from test_start_time import measure_start_time
+from test_start_time import measure_start_time, measure_start_time_windows
 
 RESULTS_DIR = Path(__file__).resolve().parent.parent / "results"
 RESULTS_DIR = str(RESULTS_DIR)
@@ -53,7 +53,7 @@ def run_all_tests(env_name, dockerized):
         win_service_name = "postgresql-x64-17"
         start_cmd = ["net", "start", win_service_name]
         stop_cmd = ["net", "stop", win_service_name]
-        start_time = measure_start_time(start_cmd, stop_cmd, "postgresql-x64-17")
+        start_time = measure_start_time_windows(start_cmd, stop_cmd)
         time.sleep(5)
         # altere a primeira parte para onde fica o seu pqsql.exe no seu computador ou deixe somente psql se tiver no PATH
         cmd = [r"C:\Program Files\PostgreSQL\17\bin\psql.exe", "-U", "postgres", "-d", "testdb", "-c", "SELECT 1;"]
